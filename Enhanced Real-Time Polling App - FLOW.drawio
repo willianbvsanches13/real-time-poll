@@ -1,0 +1,88 @@
+<mxfile host="app.diagrams.net" modified="2024-03-12T00:08:34.937Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="Fq8H-O7rUpU_8MNyx_wE" version="24.0.5" type="device">
+  <diagram name="Página-1" id="mnVJhzmr1lmP_Iv4MUB0">
+    <mxGraphModel dx="988" dy="539" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="o9oNN-6vSHE0m0lysabM-10" value="Enhanced Real-Time Polling App - Flow" style="swimlane;startSize=20;horizontal=1;containerType=tree;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="24" y="10" width="780" height="490" as="geometry" />
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-11" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;startArrow=none;endArrow=classic;rounded=0;curved=0;endFill=1;" edge="1" parent="o9oNN-6vSHE0m0lysabM-10" source="o9oNN-6vSHE0m0lysabM-12" target="o9oNN-6vSHE0m0lysabM-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-15" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endFill=1;" edge="1" parent="o9oNN-6vSHE0m0lysabM-10" target="o9oNN-6vSHE0m0lysabM-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="385" y="90" as="sourcePoint" />
+            <mxPoint x="535" y="130" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="535" y="120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-12" value="Home" style="whiteSpace=wrap;html=1;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};" vertex="1" parent="o9oNN-6vSHE0m0lysabM-10">
+          <mxGeometry x="325" y="30" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-17" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endFill=1;" edge="1" parent="o9oNN-6vSHE0m0lysabM-10" source="o9oNN-6vSHE0m0lysabM-13" target="o9oNN-6vSHE0m0lysabM-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-13" value="New Polling" style="whiteSpace=wrap;html=1;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};" vertex="1" parent="o9oNN-6vSHE0m0lysabM-10">
+          <mxGeometry x="185" y="110" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-48" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=classic;endFill=1;" edge="1" parent="o9oNN-6vSHE0m0lysabM-10" source="o9oNN-6vSHE0m0lysabM-14" target="o9oNN-6vSHE0m0lysabM-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-14" value="Participate existing polling" style="whiteSpace=wrap;html=1;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};" vertex="1" parent="o9oNN-6vSHE0m0lysabM-10">
+          <mxGeometry x="475" y="110" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-19" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=classic;endFill=1;" edge="1" parent="o9oNN-6vSHE0m0lysabM-10" source="o9oNN-6vSHE0m0lysabM-16" target="o9oNN-6vSHE0m0lysabM-18">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="356" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-16" value="Make Questions and Choices" style="whiteSpace=wrap;html=1;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};" vertex="1" parent="o9oNN-6vSHE0m0lysabM-10">
+          <mxGeometry x="185" y="190" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-18" value="Go polling" style="whiteSpace=wrap;html=1;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};" vertex="1" parent="o9oNN-6vSHE0m0lysabM-10">
+          <mxGeometry x="334" y="260" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-25" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=classic;endFill=1;" edge="1" target="o9oNN-6vSHE0m0lysabM-26" source="o9oNN-6vSHE0m0lysabM-16" parent="o9oNN-6vSHE0m0lysabM-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="265" y="170" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-26" value="&lt;p style=&quot;line-height: 0%;&quot;&gt;&lt;font style=&quot;font-size: 8px;&quot;&gt;Multiple choices?&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 0%;&quot;&gt;&lt;span style=&quot;background-color: initial; font-size: 8px;&quot;&gt;Vote only once?&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;line-height: 0%;&quot;&gt;&lt;span style=&quot;font-size: 8px; background-color: initial;&quot;&gt;Can change vote?&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;/p&gt;" style="whiteSpace=wrap;html=1;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};" vertex="1" parent="o9oNN-6vSHE0m0lysabM-10">
+          <mxGeometry x="40" y="190" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-31" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=classic;endFill=1;" edge="1" target="o9oNN-6vSHE0m0lysabM-32" source="o9oNN-6vSHE0m0lysabM-18" parent="o9oNN-6vSHE0m0lysabM-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="329" y="220" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="246" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-32" value="Vote" style="whiteSpace=wrap;html=1;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};" vertex="1" parent="o9oNN-6vSHE0m0lysabM-10">
+          <mxGeometry x="185" y="320" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-42" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=classic;endFill=1;" edge="1" parent="o9oNN-6vSHE0m0lysabM-10" source="o9oNN-6vSHE0m0lysabM-32" target="o9oNN-6vSHE0m0lysabM-41">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="426" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-40" style="edgeStyle=elbowEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=classic;endFill=1;" edge="1" target="o9oNN-6vSHE0m0lysabM-41" source="o9oNN-6vSHE0m0lysabM-18" parent="o9oNN-6vSHE0m0lysabM-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="329" y="220" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="546" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="o9oNN-6vSHE0m0lysabM-41" value="see the results" style="whiteSpace=wrap;html=1;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;};" vertex="1" parent="o9oNN-6vSHE0m0lysabM-10">
+          <mxGeometry x="486" y="320" width="120" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,108 @@
+asyncapi: '3.0.0'
+info:
+  title: Create an AsyncAPI document for a Real-Time Polling App Websocket
+  version: '1.0.0'
+  description:  |
+    Real-Time Polling Application that allows users to create polls, vote, and see the results update live. The application should demonstrate advanced front-end and back-end capabilities, attention to architecture, scalability, security, and performance.
+servers:
+  production:
+    host: wss-polling.app.com
+    pathname: /polls
+    protocol: wss
+    description: Socket Mode for real-time communication
+channels:
+  :pollID:
+    address: /
+    messages:
+      Vote:
+        $ref: '#/components/messages/Vote'
+      Result:
+        $ref: '#/components/messages/Result'
+      RequestResult:
+        $ref: '#/components/messages/RequestResult'
+operations:
+  Vote:
+    action: send
+    channel:
+      $ref: '#/channels/:pollID'
+    messages:
+      - $ref: '#/channels/:pollID/messages/Vote'
+  Result:
+    action: receive
+    channel:
+      $ref: '#/channels/:pollID'
+    messages:
+      - $ref: '#/channels/:pollID/messages/Result'
+  RequestResult:
+    action: send
+    channel:
+      $ref: '#/channels/:pollID'
+    messages:
+      - $ref: '#/channels/:pollID/messages/RequestResult'
+components:
+  messages:
+    Result:
+      summary: Action triggered on request the poll result
+      payload:
+        $ref: '#/components/schemas/Result'
+    Vote:
+      summary: Action triggered on vote
+      payload:
+        $ref: '#/components/schemas/Vote'
+    RequestResult:
+      summary: Action request poll result
+      payload:
+        $ref: '#/components/schemas/RequestResult'
+  schemas:
+    RequestResult:
+      type: boolean
+      description: The result of the request
+    Vote:
+      type: array
+      items:
+        type: string
+      description: An OptionIDs of options voted
+
+    Result:
+      type: object
+      properties:
+        pollID:
+          type: string
+          format: uuid
+          description: The unique identifier of the poll
+        title:
+          type: string
+          description: The title of the poll
+        question:
+          type: string
+          description: The question of the poll
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/OutputOption'
+          description: The options of the poll
+        start_date:
+          type: string
+          format: date-time
+          description: The start date of the poll
+        end_date:
+          type: string
+          format: date-time
+          description: The end date of the poll
+        updated_at:
+          type: string
+          format: date-time
+          description: The date of the last update of the poll
+    OutputOption:
+      type: object
+      properties:
+        optionID:
+          type: string
+          format: uuid
+          description: The unique identifier of the option
+        description:
+          type: string
+          description: The title of the option
+        votes:
+          type: integer
+          description: The votes of the option

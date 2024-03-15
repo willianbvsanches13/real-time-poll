@@ -1,0 +1,135 @@
+openapi: '3.0.2'
+info:
+  title: Real-Time Polling App API
+  version: '1.0'
+servers:
+  - url: https://api.server.test/v1
+paths:
+  /polls:
+    post:
+      summary: Create a poll
+      description: Create a poll
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputPoll'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputPoll'
+  /polls/:poolID:
+    get:
+      summary: Get a poll
+      description: Get a poll by its hashID
+      parameters:
+        - name: poolID
+          in: path
+          required: true
+          description: The hashID of the poll
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputPoll'
+    delete:
+      summary: Delete a poll
+      description: Delete a poll
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    InputPoll:
+        type: object
+        properties:
+          title:
+            type: string
+            description: The title of the poll
+          question:
+            type: string
+            description: The question of the poll
+          options:
+            type: array
+            items:
+              $ref: '#/components/schemas/InputOption'
+            description: The options of the poll
+          is_multiple:
+            type: boolean
+            description: The user can vote in multiple choices on the poll
+          show_results_after_much_votes:
+            type: number
+            description: The user can see the results after voting
+          start_date:
+            type: string
+            format: date-time
+            description: The start date of the poll
+          end_date:
+            type: string
+            format: date-time
+            description: The end date of the poll
+    OutputPoll:
+      type: object
+      properties:
+        pollID:
+          type: string
+          format: uuid
+          description: The unique identifier of the poll
+        title:
+          type: string
+          description: The title of the poll
+        question:
+          type: string
+          description: The question of the poll
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/InputOption'
+          description: The options of the poll
+        is_multiple:
+          type: boolean
+          description: The user can vote in multiple choices on the poll
+        show_results_after_much_votes:
+          type: number
+          description: The user can see the results after voting
+        start_date:
+          type: string
+          format: date-time
+          description: The start date of the poll
+        end_date:
+          type: string
+          format: date-time
+          description: The end date of the poll
+        updated_at:
+          type: string
+          format: date-time
+          description: The date of the last update of the poll
+  
+    InputOption:
+      type: object
+      properties:
+        description:
+          type: string
+          description: The title of the option
+
+    OutputOption:
+      type: object
+      properties:
+        optionID:
+          type: string
+          format: uuid
+          description: The unique identifier of the option
+        description:
+          type: string
+          description: The title of the option
+        votes:
+          type: integer
+          description: The votes of the option
