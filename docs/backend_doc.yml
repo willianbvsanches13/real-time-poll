@@ -46,6 +46,26 @@ paths:
       responses:
         '204':
           description: No Content
+  /polls/:poolID/vote:
+    post:
+      summary: Vote on a poll
+      description: Vote on a poll
+      parameters:
+        - name: poolID
+          in: path
+          required: true
+          description: The hashID of the poll
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vote'
+      responses:
+        '204':
+          description: No Content
 components:
   schemas:
     InputPoll:
@@ -62,17 +82,20 @@ components:
             items:
               $ref: '#/components/schemas/InputOption'
             description: The options of the poll
+          can_change_vote:
+            type: boolean
+            description: The user can change the vote
           is_multiple:
             type: boolean
             description: The user can vote in multiple choices on the poll
           show_results_after_much_votes:
             type: number
             description: The user can see the results after voting
-          start_date:
+          start_at:
             type: string
             format: date-time
             description: The start date of the poll
-          end_date:
+          end_at:
             type: string
             format: date-time
             description: The end date of the poll
@@ -100,11 +123,11 @@ components:
         show_results_after_much_votes:
           type: number
           description: The user can see the results after voting
-        start_date:
+        start_at:
           type: string
           format: date-time
           description: The start date of the poll
-        end_date:
+        end_at:
           type: string
           format: date-time
           description: The end date of the poll
@@ -112,7 +135,7 @@ components:
           type: string
           format: date-time
           description: The date of the last update of the poll
-  
+
     InputOption:
       type: object
       properties:
@@ -133,3 +156,13 @@ components:
         votes:
           type: integer
           description: The votes of the option
+
+    Vote:
+      type: object
+      properties:
+        optionIDs:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: The unique identifier of the option

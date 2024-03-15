@@ -14,19 +14,11 @@ channels:
   :pollID:
     address: /
     messages:
-      Vote:
-        $ref: '#/components/messages/Vote'
       Result:
         $ref: '#/components/messages/Result'
       RequestResult:
         $ref: '#/components/messages/RequestResult'
 operations:
-  Vote:
-    action: send
-    channel:
-      $ref: '#/channels/:pollID'
-    messages:
-      - $ref: '#/channels/:pollID/messages/Vote'
   Result:
     action: receive
     channel:
@@ -45,10 +37,6 @@ components:
       summary: Action triggered on request the poll result
       payload:
         $ref: '#/components/schemas/Result'
-    Vote:
-      summary: Action triggered on vote
-      payload:
-        $ref: '#/components/schemas/Vote'
     RequestResult:
       summary: Action request poll result
       payload:
@@ -57,11 +45,6 @@ components:
     RequestResult:
       type: boolean
       description: The result of the request
-    Vote:
-      type: array
-      items:
-        type: string
-      description: An OptionIDs of options voted
 
     Result:
       type: object
