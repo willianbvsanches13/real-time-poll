@@ -4,6 +4,7 @@
     "module": "ES2020",
     "noEmit": true,
     "resolveJsonModule": true,
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
