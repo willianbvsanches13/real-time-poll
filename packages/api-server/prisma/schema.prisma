@@ -12,3 +12,30 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Poll {
+  id                            String   @id @default(uuid())
+  title                         String
+  question                      String
+  options                       Json[]
+  is_multiple                   Boolean
+  can_change_vote               Boolean
+  show_results_after_much_votes Int
+  start_at                      DateTime
+  end_at                        DateTime
+  updated_at                    DateTime @updatedAt
+  deleted_at                    DateTime?
+
+  Vote                          Vote[]
+}
+
+model Vote {
+  id         String   @id @default(uuid())
+  poll       Poll     @relation(fields: [poll_id], references: [id])
+  poll_id    String
+  option_id  String
+  user_id    String
+  created_at DateTime
+  updated_at DateTime
+  deleted_at DateTime
+}

@@ -1,3 +1,5 @@
+import { PollModel } from '@/domain/models/poll';
+import { OptionModel } from '@/domain/models/option';
 import { AddPoll } from '@/domain/usecases/add-poll';
 
 export interface AddPollRepository {
@@ -5,12 +7,8 @@ export interface AddPollRepository {
 }
 
 export namespace AddPollRepository {
-  export type Params = AddPoll.Params;
+  export type Params = Omit<PollModel, 'updated_at' | 'deleted_at'>;
   export type Result = AddPoll.Result;
+  export type Options = OptionModel;
 }
 
-export class AddPollRepositorySpy implements AddPollRepository {
-  async add(data: AddPollRepository.Params): Promise<AddPollRepository.Result> {
-    return new Promise(resolve => resolve(data));
-  }
-}

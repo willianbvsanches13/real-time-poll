@@ -1,0 +1,15 @@
+version: "3"
+services:
+  poll_postgres:
+    container_name: poll_postgres
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=''
+      - POSTGRES_DB=poll
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - "~/docker/data/pypostgresql:/var/lib/postgresql"
+    command: postgres -c shared_preload_libraries=pg_stat_statements -c pg_stat_statements.track=all -c max_connections=200

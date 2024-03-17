@@ -4,3 +4,8 @@ export type OptionModel = {
   description: string;
   votes: number;
 };
+
+export type InputOptionModel = {
+  description: string;
+  votes: number;
+};
