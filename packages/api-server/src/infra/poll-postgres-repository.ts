@@ -1,7 +1,7 @@
-import { AddPollRepository } from "@/data/protocols/add-poll-repository";
+import { AddPollRepository, DeletePollRepository, ShowPollRepository } from "@/data/protocols";
 import { Context } from "@/infra/prisma-adapter";
 
-export class PollPostgresRepository implements AddPollRepository {
+export class PollPostgresRepository implements AddPollRepository, DeletePollRepository, ShowPollRepository {
   constructor(private readonly prismaAdapter: Context) { }
   async add(data: AddPollRepository.Params): Promise<AddPollRepository.Result> {
     const pollValue = {
@@ -13,14 +13,13 @@ export class PollPostgresRepository implements AddPollRepository {
       start_at: data.start_at,
       title: data.title,
       options: [
-        ...data.options.map(option => ({
+        ...data?.options.map(option => ({
           id: option.id,
           poll_id: option.poll_id,
           description: option.description,
           votes: option.votes,
         }))
       ],
-      deleted_at: new Date(0),
       updated_at: new Date(),
       id: data.id,
     }
@@ -29,7 +28,7 @@ export class PollPostgresRepository implements AddPollRepository {
       data: pollValue
     });
 
-    const options = poll.options.map((option: AddPollRepository.Options)  => ({
+    const options = poll?.options.map((option: AddPollRepository.Options)  => ({
       id: option?.id,
       poll_id: poll.id,
       description: option?.description,
@@ -39,6 +38,39 @@ export class PollPostgresRepository implements AddPollRepository {
     return {
       ...poll,
       options,
+    };
+  }
+  async delete(id: string): Promise<boolean> {
+    const result = await this.prismaAdapter.prisma.poll.delete({
+      where: {
+        id
+      }
+    });
+    return !!result;
+  }
+
+  async show(id: string): Promise<ShowPollRepository.Result | null> {
+    const poll = await this.prismaAdapter.prisma.poll.findFirst({
+      where: {
+        id,
+        deleted_at: null
+      },
+    });
+
+    if (!poll) {
+      return null;
+    }
+
+    const options = poll?.options.map((option: AddPollRepository.Options) => ({
+      id: option?.id,
+      poll_id: poll?.id,
+      description: option?.description,
+      votes: option?.votes,
+    }))
+
+    return {
+      ...poll,
+      options: options
     };
   }
 }

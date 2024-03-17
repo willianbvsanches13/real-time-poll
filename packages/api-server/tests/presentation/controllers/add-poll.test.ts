@@ -1,7 +1,7 @@
 import { describe, it, expect } from '@jest/globals';
 import { faker } from '@faker-js/faker';
 
-import { AddPoll } from '@/domain/usecases/add-poll';
+import { AddPoll } from '@/domain/usecases';
 import { AddPollController } from '@/presentation/controllers/add-poll';
 
 const param: AddPollController.Request = {
@@ -46,7 +46,7 @@ class AddPollSpy implements AddPoll {
 }
 
 
-describe('Add Poll Controller', () => {
+describe('AddPoll Controller', () => {
   it('should addPollController with correct values', async () => {
     const addPollRepository = new AddPollSpy();
     const sut = new AddPollController(addPollRepository);

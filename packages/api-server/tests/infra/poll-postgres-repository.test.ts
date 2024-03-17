@@ -1,7 +1,8 @@
 import { describe, it, expect, beforeEach } from '@jest/globals';
 import { MockContext, Context, createMockContext } from '@/infra/prisma-adapter';
 import { faker } from '@faker-js/faker';
-import { AddPollRepository } from '@/data/protocols/add-poll-repository';
+
+import { AddPollRepository } from '@/data/protocols';
 import { PollPostgresRepository } from '@/infra/poll-postgres-repository';
 
 const result: AddPollRepository.Result = {
@@ -50,7 +51,7 @@ const poll = {
   id: result.id,
 }
 
-describe('Poll Postgres Repository', () => {
+describe('PollRepository Postgres', () => {
   let mockCtx: MockContext
   let ctx: Context
 
@@ -64,6 +65,50 @@ describe('Poll Postgres Repository', () => {
 
     mockCtx.prisma.poll.create.mockResolvedValue(poll);
     await expect(sut.add(result)).resolves.toEqual(poll);
+
+  });
+
+  it('should AddPollPostgres throw if prisma throws', async () => {
+    const sut = new PollPostgresRepository(ctx);
+
+    mockCtx.prisma.poll.create.mockImplementationOnce(() => { throw new Error(); });
+    await expect(sut.add(result)).rejects.toThrow();
+
+  });
+
+  it('should show Poll correctly', async () => {
+    const sut = new PollPostgresRepository(ctx);
+
+    mockCtx.prisma.poll.findFirst.mockResolvedValue(poll);
+    await expect(sut.show(result.id)).resolves.toEqual(poll);
+  });
+
+  it("should show Poll correctly if register doesn't exists", async () => {
+      const sut = new PollPostgresRepository(ctx);
+
+      await expect(sut.show(result.id)).resolves.toEqual(null);
+    });
+
+  it('should ShowPollPostgres throw if prisma throws', async () => {
+    const sut = new PollPostgresRepository(ctx);
+
+    mockCtx.prisma.poll.findFirst.mockImplementationOnce(() => { throw new Error(); });
+    await expect(sut.show(result.id)).rejects.toThrow();
+
+  });
+
+  it('should delete Poll correctly', async () => {
+    const sut = new PollPostgresRepository(ctx);
+
+    mockCtx.prisma.poll.delete.mockResolvedValue(poll);
+    await expect(sut.delete('any_id')).resolves.toEqual(true);
+  });
+
+  it('should DeletePollPostgres throw if prisma throws', async () => {
+    const sut = new PollPostgresRepository(ctx);
+
+    mockCtx.prisma.poll.delete.mockImplementationOnce(() => { throw new Error(); });
+    await expect(sut.delete('any_id')).rejects.toThrow();
 
   });
 

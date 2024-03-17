@@ -1,6 +1,5 @@
-import { AddPoll } from '@/domain/usecases/add-poll';
-import { AddPollRepository } from '@/data/protocols/add-poll-repository';
-import { UniqueIdGenerator } from '@/data/protocols/unique-id-generator';
+import { AddPoll } from '@/domain/usecases';
+import { AddPollRepository, UniqueIdGenerator } from '@/data/protocols';
 
 export class DbAddPoll implements AddPoll {
   constructor(

@@ -1,4 +1,4 @@
-import { PollModel, InputPollModel } from '@/domain/models/poll';
+import { PollModel, InputPollModel } from '@/domain/models';
 
 export interface AddPoll {
   add: (poll: AddPoll.Params) => Promise<AddPoll.Result>;

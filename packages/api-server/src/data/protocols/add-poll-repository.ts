@@ -1,6 +1,5 @@
-import { PollModel } from '@/domain/models/poll';
-import { OptionModel } from '@/domain/models/option';
-import { AddPoll } from '@/domain/usecases/add-poll';
+import { PollModel, OptionModel } from '@/domain/models';
+import { AddPoll } from '@/domain/usecases';
 
 export interface AddPollRepository {
   add: (data: AddPollRepository.Params) => Promise<AddPollRepository.Result>;

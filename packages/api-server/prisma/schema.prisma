@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+
 }
 
 datasource db {
@@ -27,6 +28,7 @@ model Poll {
   deleted_at                    DateTime?
 
   Vote                          Vote[]
+  @@map(name: "polls")
 }
 
 model Vote {
@@ -38,4 +40,6 @@ model Vote {
   created_at DateTime
   updated_at DateTime
   deleted_at DateTime
+
+  @@map(name: "votes")
 }

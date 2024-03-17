@@ -38,7 +38,7 @@
     - Show the results of a poll.
 - The back-end must to have a protection for only show the results after X votes.
 - Backend can use Prisma ORM to connect with the database (PostgreSQL on AmazonRDS ???).
-- Redis to cache the results of a poll.
+- Redis to cache the results of a poll ???.
 
 #### Real-time services
 

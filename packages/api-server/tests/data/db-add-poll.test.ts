@@ -1,10 +1,9 @@
 import { describe, it, expect } from '@jest/globals';
 import { faker } from '@faker-js/faker';
 
-import { AddPollRepository } from '@/data/protocols/add-poll-repository';
-import { UniqueIdGenerator } from '@/data/protocols/unique-id-generator';
-import { DbAddPoll } from '@/data/usecases/db-add-poll';
-import { AddPoll } from '@/domain/usecases/add-poll';
+import { AddPollRepository, UniqueIdGenerator } from '@/data/protocols';
+import { DbAddPoll } from '@/data/usecases';
+import { AddPoll } from '@/domain/usecases';
 
 const param: AddPoll.Params = {
   title: faker.lorem.words(5),
@@ -48,7 +47,7 @@ class UniqueIdGeneratorSpy implements UniqueIdGenerator {
   }
 }
 
-describe('Add Poll', () => {
+describe('AddPoll Usecase', () => {
   it('should addPollRepository with correct values', async () => {
     const addPollRepository = new AddPollRepositorySpy();
     const uniqueIdGenerator = new UniqueIdGeneratorSpy();
