@@ -1,5 +1,4 @@
 import { describe, it, expect } from '@jest/globals';
-import { faker } from '@faker-js/faker';
 
 import { AddVote } from '@/domain/usecases';
 import { AddVoteController } from '@/presentation/controllers';

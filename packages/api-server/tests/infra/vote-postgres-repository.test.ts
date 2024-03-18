@@ -41,7 +41,6 @@ describe('VoteRepository Postgres', () => {
 
     mockCtx.prisma.vote.create.mockResolvedValue(vote);
     await expect(sut.add(result)).resolves.toEqual(vote);
-
   });
 
   it('should AddVotePostgres throw if prisma throws', async () => {
@@ -49,7 +48,20 @@ describe('VoteRepository Postgres', () => {
 
     mockCtx.prisma.vote.create.mockImplementationOnce(() => { throw new Error(); });
     await expect(sut.add(result)).rejects.toThrow();
+  });
 
+  it('should update Vote with correct values', async () => {
+    const sut = new VotePostgresRepository(ctx);
+
+    mockCtx.prisma.vote.update.mockResolvedValue(vote);
+    await expect(sut.update(result)).resolves.toEqual(vote);
+  });
+
+  it('should UpdateVotePostgres throw if prisma throws', async () => {
+    const sut = new VotePostgresRepository(ctx);
+
+    mockCtx.prisma.vote.update.mockImplementationOnce(() => { throw new Error(); });
+    await expect(sut.update(result)).rejects.toThrow();
   });
 
 });
