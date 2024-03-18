@@ -2,7 +2,7 @@ import { describe, it, expect } from '@jest/globals';
 import { faker } from '@faker-js/faker';
 
 import { AddPoll } from '@/domain/usecases';
-import { AddPollController } from '@/presentation/controllers/add-poll';
+import { AddPollController } from '@/presentation/controllers';
 
 const param: AddPollController.Request = {
   title: faker.lorem.words(5),

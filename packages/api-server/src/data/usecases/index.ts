@@ -1,3 +1,4 @@
-export * from './db-add-poll';
-export * from './db-delete-poll';
-export * from './db-show-poll';
+export * from './poll/db-add-poll';
+export * from './poll/db-delete-poll';
+export * from './poll/db-show-poll';
+export * from './vote/db-add-vote';

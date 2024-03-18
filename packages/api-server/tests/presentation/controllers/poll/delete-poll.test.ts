@@ -1,8 +1,7 @@
 import { describe, it, expect } from '@jest/globals';
-import { faker } from '@faker-js/faker';
 
 import { DeletePoll } from '@/domain/usecases';
-import { DeletePollController } from '@/presentation/controllers/delete-poll';
+import { DeletePollController } from '@/presentation/controllers';
 
 const param: DeletePollController.Request = 'any_id';
 

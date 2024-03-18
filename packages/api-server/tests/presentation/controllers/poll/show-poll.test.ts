@@ -2,7 +2,7 @@ import { describe, it, expect } from '@jest/globals';
 import { faker } from '@faker-js/faker';
 
 import { ShowPoll } from '@/domain/usecases';
-import { ShowPollController } from '@/presentation/controllers/show-poll';
+import { ShowPollController } from '@/presentation/controllers';
 
 
 const result: ShowPoll.Result = {
