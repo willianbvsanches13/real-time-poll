@@ -8,6 +8,7 @@ import {
   pollMiddleware,
   softDeleteMiddleware,
   createContext,
+  logQuery,
 } from '@/infra/adapters/prisma-adapter';
 
 describe('softDeleteMiddleware Prisma', () => {
@@ -26,6 +27,22 @@ describe('softDeleteMiddleware Prisma', () => {
     const prisma = createContext();
 
     expect(prisma).toBeDefined();
+  });
+
+  it('should call logs with correct values', async () => {
+
+    const consoleSpy = jest.spyOn(console, 'log');
+
+    logQuery({
+      query: 'any_query',
+      params: 'any_params',
+      duration: 1,
+    } as Prisma.QueryEvent);
+
+    expect(consoleSpy).toHaveBeenCalledWith('Query: any_query');
+    expect(consoleSpy).toHaveBeenCalledWith('Params: any_params');
+    expect(consoleSpy).toHaveBeenCalledWith('Duration: 1ms');
+
   });
 
   it('should add middleware to context correctly', async () => {

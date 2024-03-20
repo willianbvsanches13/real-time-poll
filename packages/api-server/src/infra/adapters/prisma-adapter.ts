@@ -16,9 +16,36 @@ export const createMockContext = (): MockContext => {
 }
 
 export const createContext = (): Context => {
+  const prisma = new PrismaClient({
+    log: [
+      {
+        emit: 'event',
+        level: 'query',
+      },
+      {
+        emit: 'stdout',
+        level: 'error',
+      },
+      {
+        emit: 'stdout',
+        level: 'info',
+      },
+      {
+        emit: 'stdout',
+        level: 'warn',
+      },
+    ],
+  });
+  prisma.$on('query', logQuery)
   return {
-    prisma: new PrismaClient(),
+    prisma,
   }
+}
+
+export function logQuery(e: Prisma.QueryEvent) {
+  console.log('Query: ' + e.query)
+  console.log('Params: ' + e.params)
+  console.log('Duration: ' + e.duration + 'ms')
 }
 export async function pollMiddleware(params: Prisma.MiddlewareParams, next: (params: Prisma.MiddlewareParams) => Promise<any>): Promise<any> {
   if (params.model === 'Poll') {

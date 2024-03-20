@@ -13,29 +13,26 @@ export class PollPostgresRepository implements AddPollRepository, DeletePollRepo
       show_results_after_much_votes: data.show_results_after_much_votes,
       start_at: data.start_at,
       title: data.title,
-      options: [
-        ...data?.options.map(option => ({
-          id: option.id,
-          poll_id: option.poll_id,
-          description: option.description,
-          votes: option.votes || 0,
-        }))
-      ],
       updated_at: new Date(),
       id: data.id,
     }
 
-    const poll = await this.prismaAdapter.prisma.poll.create({
-      data: pollValue
-    });
-
-    let jsonOptions = poll?.options as Prisma.InputJsonArray;
+    let jsonOptions = data?.options as Prisma.InputJsonArray;
     const options = jsonOptions.map((option: AddPollRepository.Options) => ({
       id: option?.id,
-      poll_id: poll.id,
+      poll_id: data.id,
       description: option?.description,
       votes: option?.votes,
     }));
+
+    const [poll, _options] = await this.prismaAdapter.prisma.$transaction([
+      this.prismaAdapter.prisma.poll.create({
+        data: pollValue
+      }),
+      this.prismaAdapter.prisma.option.createMany({
+        data: data.options
+      }),
+    ]);
 
     return {
       ...poll,
@@ -63,17 +60,15 @@ export class PollPostgresRepository implements AddPollRepository, DeletePollRepo
       return null;
     }
 
-    let jsonOptions = poll?.options as Prisma.InputJsonArray;
-    const options = jsonOptions.map((option: AddPollRepository.Options) => ({
-      id: option?.id,
-      poll_id: poll?.id,
-      description: option?.description,
-      votes: option?.votes,
-    }))
+    const options = await this.prismaAdapter.prisma.option.findMany({
+      where: {
+        poll_id: poll.id
+      }
+    });
 
     return {
       ...poll,
-      options: options
+      options,
     };
   }
 }

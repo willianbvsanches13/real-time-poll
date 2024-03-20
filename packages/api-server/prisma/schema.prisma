@@ -17,7 +17,6 @@ model Poll {
   id                            String    @id @default(uuid())
   title                         String
   question                      String
-  options                       Json
   is_multiple                   Boolean
   can_change_vote               Boolean
   show_results_after_much_votes Int
@@ -27,9 +26,22 @@ model Poll {
   updated_at                    DateTime  @updatedAt
   deleted_at                    DateTime?
 
-  Vote Vote[]
+  Vote   Vote[]
+  Option Option[]
 
   @@map(name: "polls")
+}
+
+model Option {
+  id          String   @id @default(uuid())
+  poll        Poll     @relation(fields: [poll_id], references: [id])
+  poll_id     String
+  description String
+  votes       Int      @default(0)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map(name: "options")
 }
 
 model Vote {

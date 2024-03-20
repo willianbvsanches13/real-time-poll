@@ -4,14 +4,17 @@ import { UpdateVote } from '@/domain/usecases';
 import { UpdateVoteController } from '@/presentation/controllers';
 
 const param: UpdateVoteController.Request = {
-  id: 'any_id',
-  poll_id: 'any_id',
+  voteID: 'any_id',
+  pollID: 'any_id',
   user_id: 'any_id',
-  option_ids: ['any_id'],
+  optionIDs: ['any_id'],
 }
 
 const result: UpdateVote.Result = {
-  ...param,
+  id: param.voteID,
+  poll_id: param.pollID,
+  option_ids: param.optionIDs,
+  user_id: param.user_id,
   created_at: new Date(),
   updated_at: new Date(),
 }
@@ -35,7 +38,12 @@ describe('UpdateVote Controller', () => {
     const updateSpy = jest.spyOn(updateVoteRepository, 'update');
     const response = await sut.handle(param);
 
-    expect(updateSpy).toHaveBeenCalledWith(param);
+    expect(updateSpy).toHaveBeenCalledWith({
+      id: param.voteID,
+      poll_id: param.pollID,
+      user_id: param.user_id,
+      option_ids: param.optionIDs
+    });
     expect(response).toEqual(httpResponse);
   });
 

@@ -64,7 +64,10 @@ describe('PollRepository Postgres', () => {
   it('should add Poll with correct values', async () => {
     const sut = new PollPostgresRepository(ctx);
 
-    mockCtx.prisma.poll.create.mockResolvedValue(poll);
+    mockCtx.prisma.$transaction.mockResolvedValue([
+      poll,
+      poll.options,
+    ]);
     await expect(sut.add(result)).resolves.toEqual(poll);
 
   });
@@ -79,9 +82,9 @@ describe('PollRepository Postgres', () => {
 
   it('should show Poll correctly', async () => {
     const sut = new PollPostgresRepository(ctx);
-
-    mockCtx.prisma.poll.findFirst.mockResolvedValue(poll);
-    await expect(sut.show(result.id)).resolves.toEqual(poll);
+    const { options, ...returnedPoll } = poll;
+    mockCtx.prisma.poll.findFirst.mockResolvedValue(returnedPoll);
+    await expect(sut.show(result.id)).resolves.toEqual(returnedPoll);
   });
 
   it("should show Poll correctly if register doesn't exists", async () => {

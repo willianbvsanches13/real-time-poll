@@ -77,7 +77,7 @@ describe('VoteRepository Logged', () => {
   it('should AddVotePostgres throw if prisma throws', async () => {
     const sut = new VoteLoggedRepository(ctx);
 
-    mockCtx.prisma.vote.create.mockImplementationOnce(() => { throw new Error(); });
+    mockCtx.prisma.option.updateMany.mockImplementationOnce(() => { throw new Error(); });
     await expect(sut.add(result)).rejects.toThrow();
   });
 
