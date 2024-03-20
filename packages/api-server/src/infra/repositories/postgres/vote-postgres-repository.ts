@@ -1,9 +1,20 @@
 import { AddVoteRepository, UpdateVoteRepository } from "@/data/protocols";
-import { Context } from "@/infra/prisma-adapter";
+import { Context } from "@/infra/adapters/prisma-adapter";
 
 export class VotePostgresRepository implements AddVoteRepository, UpdateVoteRepository {
   constructor(private readonly prismaAdapter: Context) { }
-  async add(data: AddVoteRepository.Params): Promise<AddVoteRepository.Result> {
+  async add(data: AddVoteRepository.Params): Promise<AddVoteRepository.Result | null> {
+    const poll = await this.prismaAdapter.prisma.poll.findFirst({
+      where: {
+        id: data.poll_id,
+        deleted_at: null,
+      }
+    });
+
+    if (!poll) {
+      throw new Error('Poll not found');
+    }
+
     return this.prismaAdapter.prisma.vote.create({
       data: {
         id: data.id,

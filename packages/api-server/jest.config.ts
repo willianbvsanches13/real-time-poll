@@ -2,22 +2,21 @@ import { JestConfigWithTsJest, pathsToModuleNameMapper } from 'ts-jest'
 // import { compilerOptions } from './tsconfig.json'
 
 const jestConfig: JestConfigWithTsJest = {
+  roots: ['<rootDir>/tests'],
   preset: 'ts-jest',
-  moduleDirectories: ['node_modules', 'src'],
-  moduleNameMapper: pathsToModuleNameMapper({
-    "@/tests/*": ["../tests/*"],
-    "@/*": ["*"]
-  }),
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.ts',
+    '!<rootDir>/src/main/**'
+  ],
+  coverageDirectory: 'coverage',
+  moduleDirectories: ['node_modules', 'src', 'tests'],
+  moduleNameMapper: {
+    '@/tests/(.*)': '<rootDir>/tests/$1',
+    '@/(.*)': '<rootDir>/src/$1'
+  },
   injectGlobals: true,
   transform: {
-    // '^.+\\.[tj]sx?$' to process js/ts with `ts-jest`
-    // '^.+\\.m?[tj]sx?$' to process js/ts/mjs/mts with `ts-jest`
-    '^.+\\.tsx?$': [
-      'ts-jest',
-      {
-        // ts-jest configuration goes here
-      },
-    ],
+    '.+\\.ts$': 'ts-jest'
   },
   verbose: true,
 }

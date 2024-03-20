@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach } from '@jest/globals';
-import { MockContext, Context, createMockContext } from '@/infra/prisma-adapter';
+import { MockContext, Context, createMockContext } from '@/infra/adapters/prisma-adapter';
 import { faker } from '@faker-js/faker';
 
 import { AddPollRepository } from '@/data/protocols';
-import { PollPostgresRepository } from '@/infra/poll-postgres-repository';
+import { PollPostgresRepository } from '@/infra/repositories/postgres/poll-postgres-repository';
 
 const result: AddPollRepository.Result = {
   id: 'any_id',
@@ -46,6 +46,7 @@ const poll = {
       votes: option.votes,
     }))
   ],
+  created_at: new Date(),
   deleted_at: null,
   updated_at: new Date(),
   id: result.id,

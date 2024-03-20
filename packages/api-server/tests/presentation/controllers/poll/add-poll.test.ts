@@ -3,26 +3,9 @@ import { faker } from '@faker-js/faker';
 
 import { AddPoll } from '@/domain/usecases';
 import { AddPollController } from '@/presentation/controllers';
+import { mockAddPollControllerParam } from '@/tests/domain/mocks';
 
-const param: AddPollController.Request = {
-  title: faker.lorem.words(5),
-  question: faker.lorem.paragraph(1),
-  options: [
-    {
-      description: faker.lorem.words(5),
-      votes: 0
-    },
-    {
-      description: faker.lorem.words(5),
-      votes: 0
-    }
-  ],
-  is_multiple: faker.helpers.maybe(() => 1, { probability: 0.5 }) === 1,
-  can_change_vote: false,
-  show_results_after_much_votes: 1,
-  start_at: faker.date.anytime(),
-  end_at: faker.date.future(),
-}
+const param = mockAddPollControllerParam();
 
 const result: AddPoll.Result = {
   ...param,

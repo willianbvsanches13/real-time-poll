@@ -2,8 +2,9 @@ import { describe, it, expect } from '@jest/globals';
 
 import { DeletePoll } from '@/domain/usecases';
 import { DeletePollController } from '@/presentation/controllers';
+import { badRequest } from '@/presentation/helpers/http-helper';
 
-const param: DeletePollController.Request = 'any_id';
+const param: DeletePollController.Request = { pollID: 'any_id'};
 
 const result: DeletePoll.Result = true;
 
@@ -26,9 +27,17 @@ describe('DeletePoll Controller', () => {
     const deleteSpy = jest.spyOn(deletePollRepository, 'delete');
     const response = await sut.handle(param);
 
-    expect(deleteSpy).toHaveBeenCalledWith(param);
+    expect(deleteSpy).toHaveBeenCalledWith(param.pollID);
     expect(response).toEqual(httpResponse);
   });
+
+  it('should deletePollController with wrong values', async () => {
+      const showPollRepository = new DeletePollSpy();
+      const sut = new DeletePollController(showPollRepository);
+      const response = await sut.handle({ pollID: '' });
+
+      expect(response).toEqual(badRequest(new Error('pollID is required')));
+    });
 
   it('should throw if DeletePoll throws', async () => {
     const deletePollRepository = new DeletePollSpy();

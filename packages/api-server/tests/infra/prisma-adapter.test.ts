@@ -8,7 +8,7 @@ import {
   pollMiddleware,
   softDeleteMiddleware,
   createContext,
-} from '@/infra/prisma-adapter';
+} from '@/infra/adapters/prisma-adapter';
 
 describe('softDeleteMiddleware Prisma', () => {
   let mockCtx: MockContext

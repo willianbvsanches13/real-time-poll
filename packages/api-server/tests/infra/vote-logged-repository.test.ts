@@ -3,7 +3,7 @@ import { MockContext, Context, createMockContext } from '@/infra/adapters/prisma
 import { faker } from '@faker-js/faker';
 
 import { AddVoteRepository } from '@/data/protocols';
-import { VotePostgresRepository } from '@/infra/repositories/postgres/vote-postgres-repository';
+import { VoteLoggedRepository } from '@/infra/repositories/log/vote-logged-repository';
 
 jest.useFakeTimers({
   now: new Date('2021-01-01'),
@@ -13,7 +13,7 @@ const result: AddVoteRepository.Result = {
   id: 'any_id',
   poll_id: 'any_id',
   user_id: 'any_id',
-  option_ids: ['any_id'],
+  option_ids: ['any_id_1'],
   created_at: new Date(),
   updated_at: new Date(),
 }
@@ -34,13 +34,13 @@ const poll = {
     question: faker.lorem.paragraph(1),
     options: [
       {
-        id: 'any_id',
+        id: 'any_id_1',
         poll_id: 'any_id',
         description: faker.lorem.words(5),
         votes: 0
       },
       {
-        id: 'any_id',
+        id: 'any_id_2',
         poll_id: 'any_id',
         description: faker.lorem.words(5),
         votes: 0
@@ -56,7 +56,7 @@ const poll = {
     updated_at: new Date(),
 }
 
-describe('VoteRepository Postgres', () => {
+describe('VoteRepository Logged', () => {
   let mockCtx: MockContext
   let ctx: Context
 
@@ -65,33 +65,20 @@ describe('VoteRepository Postgres', () => {
     ctx = mockCtx as unknown as Context
   })
 
-  it('should add Vote with correct values can change', async () => {
-    const sut = new VotePostgresRepository(ctx);
+  it('should add Vote with correct values', async () => {
+    const sut = new VoteLoggedRepository(ctx);
 
     mockCtx.prisma.poll.findFirst.mockResolvedValue(poll);
-    mockCtx.prisma.vote.create.mockResolvedValue(vote);
-    await expect(sut.add(result)).resolves.toEqual(vote);
+    mockCtx.prisma.poll.update.mockResolvedValue(poll);
+
+    await expect(sut.add(result)).resolves.toBeNull();
   });
 
   it('should AddVotePostgres throw if prisma throws', async () => {
-    const sut = new VotePostgresRepository(ctx);
+    const sut = new VoteLoggedRepository(ctx);
 
     mockCtx.prisma.vote.create.mockImplementationOnce(() => { throw new Error(); });
     await expect(sut.add(result)).rejects.toThrow();
-  });
-
-  it('should update Vote with correct values', async () => {
-    const sut = new VotePostgresRepository(ctx);
-
-    mockCtx.prisma.vote.update.mockResolvedValue(vote);
-    await expect(sut.update(result)).resolves.toEqual(vote);
-  });
-
-  it('should UpdateVotePostgres throw if prisma throws', async () => {
-    const sut = new VotePostgresRepository(ctx);
-
-    mockCtx.prisma.vote.update.mockImplementationOnce(() => { throw new Error(); });
-    await expect(sut.update(result)).rejects.toThrow();
   });
 
 });

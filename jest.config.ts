@@ -4,5 +4,5 @@ module.exports = {
   projects: ['<rootDir>/packages/**/jest.config.ts'],
   resolveJsonModule: true,
   testEnvironment: 'node',
-  testMatch: ['*.spec.ts', '*.spec.tsx']
+  testMatch: ['*.test.ts', '*.test.tsx']
 }

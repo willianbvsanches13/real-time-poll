@@ -1,7 +1,7 @@
 import { VoteModel } from '@/domain/models';
 
 export interface AddVote {
-  add: (vote: AddVote.Params) => Promise<AddVote.Result>;
+  add: (vote: AddVote.Params) => Promise<AddVote.Result | null>;
 }
 
 export namespace AddVote {

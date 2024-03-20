@@ -3,7 +3,11 @@ import { faker } from '@faker-js/faker';
 
 import { ShowPoll } from '@/domain/usecases';
 import { ShowPollController } from '@/presentation/controllers';
+import { badRequest } from '@/presentation/helpers/http-helper';
 
+const param: ShowPollController.Request = {
+  pollID: 'any_id',
+};
 
 const result: ShowPoll.Result = {
     id: 'any_id',
@@ -48,17 +52,25 @@ describe('ShowPoll Controller', () => {
     const showPollRepository = new ShowPollSpy();
     const sut = new ShowPollController(showPollRepository);
     const showSpy = jest.spyOn(showPollRepository, 'show');
-    const response = await sut.handle(result.id);
+    const response = await sut.handle(param);
 
-    expect(showSpy).toHaveBeenCalledWith(result.id);
+    expect(showSpy).toHaveBeenCalledWith(param.pollID);
     expect(response).toEqual(httpResponse);
+  });
+
+  it('should showPollController with wrong values', async () => {
+    const showPollRepository = new ShowPollSpy();
+    const sut = new ShowPollController(showPollRepository);
+    const response = await sut.handle({ pollID: '' });
+
+    expect(response).toEqual(badRequest(new Error('pollID is required')));
   });
 
   it('should throw if ShowPoll throws', async () => {
     const showPollRepository = new ShowPollSpy();
     const sut = new ShowPollController(showPollRepository);
     jest.spyOn(showPollRepository, 'show').mockImplementationOnce(() => { throw new Error(); });
-    const promise = sut.handle(result.id);
+    const promise = sut.handle(param);
     await expect(promise).rejects.toThrow();
   });
 });

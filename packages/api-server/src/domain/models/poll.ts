@@ -10,6 +10,7 @@ export type PollModel = {
   show_results_after_much_votes: number;
   start_at: Date;
   end_at: Date;
+  created_at?: Date;
   updated_at: Date;
   deleted_at: Date;
 };

@@ -6,14 +6,17 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@/tests/*": ["tests/*"],
-      "@/*": ["src/*"]
+      "@/*": [
+        "*"
+      ]
     },
     "moduleResolution": "Node",
     "strictNullChecks": true
   },
-  "include": ["src", "tests"],
-  "exclude": []
+  "include": ["src"],
+  "exclude": [
+    "tests"
+  ]
 }

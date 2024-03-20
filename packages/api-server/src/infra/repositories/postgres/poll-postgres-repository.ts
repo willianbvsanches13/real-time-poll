@@ -1,5 +1,6 @@
 import { AddPollRepository, DeletePollRepository, ShowPollRepository } from "@/data/protocols";
-import { Context } from "@/infra/prisma-adapter";
+import { Context } from "@/infra/adapters/prisma-adapter";
+import { Prisma } from "@prisma/client";
 
 export class PollPostgresRepository implements AddPollRepository, DeletePollRepository, ShowPollRepository {
   constructor(private readonly prismaAdapter: Context) { }
@@ -17,7 +18,7 @@ export class PollPostgresRepository implements AddPollRepository, DeletePollRepo
           id: option.id,
           poll_id: option.poll_id,
           description: option.description,
-          votes: option.votes,
+          votes: option.votes || 0,
         }))
       ],
       updated_at: new Date(),
@@ -28,7 +29,8 @@ export class PollPostgresRepository implements AddPollRepository, DeletePollRepo
       data: pollValue
     });
 
-    const options = poll?.options.map((option: AddPollRepository.Options)  => ({
+    let jsonOptions = poll?.options as Prisma.InputJsonArray;
+    const options = jsonOptions.map((option: AddPollRepository.Options) => ({
       id: option?.id,
       poll_id: poll.id,
       description: option?.description,
@@ -61,7 +63,8 @@ export class PollPostgresRepository implements AddPollRepository, DeletePollRepo
       return null;
     }
 
-    const options = poll?.options.map((option: AddPollRepository.Options) => ({
+    let jsonOptions = poll?.options as Prisma.InputJsonArray;
+    const options = jsonOptions.map((option: AddPollRepository.Options) => ({
       id: option?.id,
       poll_id: poll?.id,
       description: option?.description,

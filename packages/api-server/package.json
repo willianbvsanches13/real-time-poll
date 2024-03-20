@@ -2,13 +2,14 @@
   "name": "api-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "type": "module",
+  "main": "server.ts",
+  "type": "commonjs",
   "scripts": {
-    "build": "tsc ./index.ts --outDir ./dist",
-    "build:watch": "tsc -w ./src --outDir ./dist",
-    "start:dev": "node ./dist/index.js",
-    "start": "tsc ./index.ts --outDir ./dist && node ./dist/index.js",
+    "build": "tsc",
+    "build:watch": "tsc -w --outDir ./dist -p tsconfig-build.json",
+    "build:dev": "tsc -w --outDir ./dist -p tsconfig-build.json",
+    "start:dev": "node --watch ./dist/main/server.js",
+    "start": "tsc ./src/main/server.ts --outDir ./dist && node ./dist/src/main/server.js",
     "test:coverage": "jest --collectCoverage",
     "test:debug": "jest --watch --collectCoverage --runInBand ./",
     "test:debugger": "node --inspect-brk ./node_modules/.bin/jest --runInBand"
@@ -24,10 +25,15 @@
     "jest-mock-extended": "^3.0.5",
     "prisma": "^5.11.0",
     "ts-jest": "^29.1.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.2"
   },
   "dependencies": {
     "@prisma/client": "^5.11.0",
+    "module-alias": "^2.2.3",
     "short-unique-id": "^5.0.3"
+  },
+  "_moduleAliases": {
+    "@": "dist"
   }
 }

@@ -3,7 +3,7 @@ info:
   title: Real-Time Polling App API
   version: '1.0'
 servers:
-  - url: https://api.server.test/v1
+  - url: http://localhost/3000/api
 paths:
   /polls:
     post:
@@ -50,6 +50,26 @@ paths:
     post:
       summary: Vote on a poll
       description: Vote on a poll
+      parameters:
+        - name: poolID
+          in: path
+          required: true
+          description: The hashID of the poll
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vote'
+      responses:
+        '204':
+          description: No Content
+  /polls/:poolID/vote/:voteID:
+    put:
+      summary: Update vote on a poll
+      description: Update vote on a poll
       parameters:
         - name: poolID
           in: path
@@ -166,3 +186,4 @@ components:
             type: string
             format: uuid
           description: The unique identifier of the option
+
