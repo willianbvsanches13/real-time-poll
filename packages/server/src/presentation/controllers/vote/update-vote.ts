@@ -1,4 +1,3 @@
-import { VoteModel } from '@/domain/models';
 import { UpdateVote } from '@/domain/usecases';
 import { Controller } from '@/presentation/protocols/controller';
 import { HttpResponse } from '@/presentation/protocols/http';

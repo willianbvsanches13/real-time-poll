@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -29,45 +33,13 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  height: 100%;
+  width: 100%;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
-
-button {
-  padding: 1em 2em;
-  margin: 1em;
-  font-size: 1.5em;
-  cursor: pointer;
-  border: 0;
-  border-radius: 0.5em;
-  background-color: #646cff;
-  color: white;
-  will-change: transform;
-  transition: transform 300ms;
-}
-
-input {
-  padding: 1em 2em;
-  margin: 1em;
-  font-size: 1.5em;
-  border: 0;
-  border-radius: 0.5em;
-  background-color: #fff;
-  color: rgb(0, 0, 0);
-  will-change: transform;
-  transition: transform 300ms;
-}
-
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {
