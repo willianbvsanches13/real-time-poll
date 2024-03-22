@@ -3,6 +3,8 @@ import { Server } from 'socket.io';
 import { cors } from '@/main/middlewares/cors';
 import { createContext, softDeleteMiddleware } from '@/infra';
 import setupRoutes from '@/main/config/routes';
+import setupSocket from '@/main/config/socketio';
+
 import { createServer, Server as HttpServer } from 'http';
 
 type App = {
@@ -25,5 +27,6 @@ export const setupApp = async (): Promise<App> => {
   const prismaContext = createContext();
   softDeleteMiddleware(prismaContext);
   setupRoutes(app, prismaContext, io)
+  setupSocket(io);
   return { app, io, httpServer };
 }

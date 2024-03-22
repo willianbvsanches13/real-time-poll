@@ -72,6 +72,8 @@ describe('VoteRepository Postgres', () => {
       deleted_at: null,
       created_at: new Date(),
       updated_at: new Date(),
+      is_multiple: poll.is_multiple ?? false,
+      show_results_after_much_votes: poll.show_results_after_much_votes ?? 0,
     });
     mockCtx.prisma.$transaction.mockResolvedValue([
       vote,
@@ -93,6 +95,8 @@ describe('VoteRepository Postgres', () => {
       deleted_at: null,
       created_at: new Date(),
       updated_at: new Date(),
+      is_multiple: poll.is_multiple ?? false,
+      show_results_after_much_votes: poll.show_results_after_much_votes ?? 0,
     });
     mockCtx.prisma.vote.create.mockImplementationOnce(() => { throw new Error(); });
     await expect(sut.add(result)).rejects.toThrow();

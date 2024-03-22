@@ -5,8 +5,19 @@ export class VotePostgresRepository implements AddVoteRepository, UpdateVoteRepo
   constructor(private readonly prismaAdapter: Context) { }
   async add(data: AddVoteRepository.Params): Promise<AddVoteRepository.Result | null> {
     const [vote, _up] = await this.prismaAdapter.prisma.$transaction([
-      this.prismaAdapter.prisma.vote.create({
-        data: {
+      this.prismaAdapter.prisma.vote.upsert({
+        where: {
+          poll_id_user_id: {
+            poll_id: data.poll_id,
+            user_id: data.user_id,
+          },
+        },
+        update: {
+          option_ids: data.option_ids,
+          updated_at: new Date(),
+          deleted_at: null,
+        },
+        create: {
           id: data.id,
           poll_id: data.poll_id,
           option_ids: data.option_ids,

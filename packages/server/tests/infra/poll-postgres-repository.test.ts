@@ -83,15 +83,19 @@ describe('PollRepository Postgres', () => {
   it('should show Poll correctly', async () => {
     const sut = new PollPostgresRepository(ctx);
     const { options, ...returnedPoll } = poll;
-    mockCtx.prisma.poll.findFirst.mockResolvedValue(returnedPoll);
+    mockCtx.prisma.poll.findFirst.mockResolvedValue({
+      ...returnedPoll,
+      is_multiple: returnedPoll.is_multiple ?? false,
+      show_results_after_much_votes: returnedPoll.show_results_after_much_votes ?? 0,
+    });
     await expect(sut.show(result.id)).resolves.toEqual(returnedPoll);
   });
 
   it("should show Poll correctly if register doesn't exists", async () => {
-      const sut = new PollPostgresRepository(ctx);
+    const sut = new PollPostgresRepository(ctx);
 
-      await expect(sut.show(result.id)).resolves.toEqual(null);
-    });
+    await expect(sut.show(result.id)).resolves.toEqual(null);
+  });
 
   it('should ShowPollPostgres throw if prisma throws', async () => {
     const sut = new PollPostgresRepository(ctx);
@@ -104,7 +108,11 @@ describe('PollRepository Postgres', () => {
   it('should delete Poll correctly', async () => {
     const sut = new PollPostgresRepository(ctx);
 
-    mockCtx.prisma.poll.delete.mockResolvedValue(poll);
+    mockCtx.prisma.poll.delete.mockResolvedValue({
+      ...poll,
+      is_multiple: poll.is_multiple ?? false,
+      show_results_after_much_votes: poll.show_results_after_much_votes ?? 0,
+    });
     await expect(sut.delete('any_id')).resolves.toEqual(true);
   });
 

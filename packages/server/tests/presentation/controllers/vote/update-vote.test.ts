@@ -2,6 +2,7 @@ import { describe, it, expect } from '@jest/globals';
 
 import { UpdateVote } from '@/domain/usecases';
 import { UpdateVoteController } from '@/presentation/controllers';
+import { serverError } from '@/presentation/helpers/http-helper';
 
 const param: UpdateVoteController.Request = {
   voteID: 'any_id',
@@ -47,11 +48,11 @@ describe('UpdateVote Controller', () => {
     expect(response).toEqual(httpResponse);
   });
 
-  it('should throw if UpdateVote throws', async () => {
+  it('should return internal server error if UpdateVote throws', async () => {
     const updateVoteRepository = new UpdateVoteSpy();
     const sut = new UpdateVoteController(updateVoteRepository);
     jest.spyOn(updateVoteRepository, 'update').mockImplementationOnce(() => { throw new Error(); });
     const promise = sut.handle(param);
-    await expect(promise).rejects.toThrow();
+    await expect(promise).resolves.toEqual(serverError(new Error()));
   });
 });

@@ -28,7 +28,6 @@ class AddPollSpy implements AddPoll {
   }
 }
 
-
 describe('AddPoll Controller', () => {
   it('should addPollController with correct values', async () => {
     const addPollRepository = new AddPollSpy();
@@ -37,7 +36,18 @@ describe('AddPoll Controller', () => {
     const response = await sut.handle(param);
 
     expect(addSpy).toHaveBeenCalledWith(param);
-    expect(response).toEqual(httpResponse);
+    expect(response).toEqual({
+      ...httpResponse,
+      body: {
+        id: result.id,
+        title: result.title,
+        question: result.question,
+        options: result.options.map((option) => ({ id: option.id, description: option.description })),
+        can_change_vote: result.can_change_vote,
+        start_at: result.start_at,
+        end_at: result.end_at,
+      },
+    });
   });
 
   it('should throw if AddPoll throws', async () => {

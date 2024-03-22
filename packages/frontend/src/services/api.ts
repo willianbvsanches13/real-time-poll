@@ -2,7 +2,7 @@ import axios from 'axios';
 import { PollModel } from '../models/poll';
 
 export const api = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'https://fedc-177-75-142-9.ngrok-free.app/api',
   headers: {
     'Content-Type': 'application/json',
   },

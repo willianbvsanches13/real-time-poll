@@ -12,7 +12,7 @@ export class AddPollController implements Controller {
       id: poll.id,
       title: poll.title,
       question: poll.question,
-      options: poll.options.map((option) => ({ id: option.id, value: option.description })),
+      options: poll.options.map((option) => ({ id: option.id, description: option.description })),
       can_change_vote: poll.can_change_vote,
       start_at: poll.start_at,
       end_at: poll.end_at,

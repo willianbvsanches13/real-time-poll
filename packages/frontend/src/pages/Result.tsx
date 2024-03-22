@@ -1,10 +1,9 @@
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { socket } from '../services/socket';
 import { getPoll } from '../services/api';
 import { PollModel } from '../models/poll';
-import { Loading } from '../components/Loading';
 
 import {
   Chart as ChartJS,
@@ -85,16 +84,12 @@ export function Result(): JSX.Element {
 
   }, [poll]);
 
-  // aqui fazer conexão via websocket para atualizar os resultados em tempo real
-
-
   return (
     <div className='h-full w-full flex flex-col items-start justify-start' >
-      <h1 className='self-center' >{poll?.title}</h1>
-      <p className='mt-16 font-bold text-4xl self-center' >{poll?.question}</p>
-      <Suspense fallback={<Loading />}>
-        <Bar options={options} data={data} />
-      </Suspense>
+      <h1 className='self-center text-4xl sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl' >{poll?.title}</h1>
+      <p className='mt-16 sm:text-3xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-4xl self-center' >{poll?.question}</p>
+      <Bar className='mt-20'  options={options} data={data} />
+
     </div>
   );
 }

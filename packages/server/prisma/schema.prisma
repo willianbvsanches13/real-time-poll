@@ -30,6 +30,7 @@ model Poll {
   Option Option[]
 
   @@map(name: "polls")
+
 }
 
 model Option {
@@ -42,6 +43,7 @@ model Option {
   updated_at  DateTime @updatedAt
 
   @@map(name: "options")
+  @@index([poll_id])
 }
 
 model Vote {
