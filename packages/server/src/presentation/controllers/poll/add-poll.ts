@@ -7,8 +7,16 @@ import { ok } from '@/presentation/helpers/http-helper';
 export class AddPollController implements Controller {
   constructor(private readonly addPoll: AddPoll) {}
   async handle(request: AddPollController.Request): Promise<HttpResponse> {
-    await this.addPoll.add(request);
-    return ok('ok');
+    const poll = await this.addPoll.add(request);
+    return ok({
+      id: poll.id,
+      title: poll.title,
+      question: poll.question,
+      options: poll.options.map((option) => ({ id: option.id, value: option.description })),
+      can_change_vote: poll.can_change_vote,
+      start_at: poll.start_at,
+      end_at: poll.end_at,
+    });
   }
 }
 

@@ -27,7 +27,11 @@ export class PollPostgresRepository implements AddPollRepository, DeletePollRepo
 
     const [poll, _options] = await this.prismaAdapter.prisma.$transaction([
       this.prismaAdapter.prisma.poll.create({
-        data: pollValue
+        data: {
+          ...pollValue,
+          is_multiple: data.is_multiple || false,
+          show_results_after_much_votes: data.show_results_after_much_votes || 0,
+        },
       }),
       this.prismaAdapter.prisma.option.createMany({
         data: data.options

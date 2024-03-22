@@ -13,15 +13,15 @@ type App = {
 
 export const setupApp = async (): Promise<App> => {
   const app = express();
+  app.set('trust proxy', true);
+  app.use(json());
+  app.use(cors);
   const httpServer = createServer(app);
   const io = new Server(httpServer, {
     cors: {
       origin: '*',
     },
   });
-  app.set('trust proxy', true);
-  app.use(json());
-  app.use(cors);
   const prismaContext = createContext();
   softDeleteMiddleware(prismaContext);
   setupRoutes(app, prismaContext, io)

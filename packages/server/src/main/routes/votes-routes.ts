@@ -7,6 +7,6 @@ import { Server } from 'socket.io'
 
 export default (router: Router, ctx: Context, io: Server): void => {
   console.log('polls-routes.ts')
-  router.post('/:pollID/vote', adaptRoute(makeAddVoteController(ctx, io)))
-  router.put('/:pollID/vote/:voteID', adaptRoute(makeUpdateVoteController(ctx, io)))
+  router.post('/polls/:pollID/vote', adaptRoute(makeAddVoteController(ctx, io)))
+  router.put('/polls/:pollID/vote/:voteID', adaptRoute(makeUpdateVoteController(ctx, io)))
 }
