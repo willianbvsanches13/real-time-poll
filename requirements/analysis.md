@@ -1,4 +1,4 @@
-# Analize
+# Analysis
 
 ## Front-end:
 
